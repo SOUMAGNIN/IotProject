@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_firebase/models/user.dart';
 
-class DatabaseService {
+import 'package:login_singup/screen/user.dart';class DatabaseService {
   final String uid;
 
   DatabaseService(this.uid);
@@ -17,9 +16,9 @@ class DatabaseService {
     var data = snapshot.data();
     if (data == null) throw Exception("user not found");
     return AppUserData(
-      uid: uid,
-      name: data['name'],
-      waterCounter: data['waterCount'],
+      uid,
+      data['name'],
+      data['waterCount'],
     );
   }
 

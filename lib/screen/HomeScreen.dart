@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:login_singup/screen/authenfication.dart';
+import 'package:login_singup/screen/user.dart';
+import 'package:provider/provider.dart';
+
+import 'database.dart';
+import 'loading.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -7,7 +12,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<AppUser?>(context);
+    final user = Provider.of<AppUser>(context);
     if (user == null) throw Exception("user not found");
     final database = DatabaseService(user.uid);
     return StreamProvider<List<AppUserData>>.value(
@@ -24,7 +29,7 @@ class HomeScreen extends StatelessWidget {
               stream: database.user,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  AppUserData? userData = snapshot.data;
+                  AppUserData userData = snapshot.data;
                   if (userData == null) return Loading();
                   return TextButton.icon(
                     icon: Icon(
@@ -53,7 +58,7 @@ class HomeScreen extends StatelessWidget {
             )
           ],
         ),
-        body: UserList(),
+        body: null ,//UserList() ,
       ),
     );
   }
