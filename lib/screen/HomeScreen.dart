@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:login_singup/screen/authenfication.dart';
-import 'package:login_singup/screen/user.dart';
+
 import 'package:provider/provider.dart';
 
-import 'database.dart';
-import 'loading.dart';
+import '../Modules/authenfication.dart';
+import '../Modules/database.dart';
+import '../Modules/user.dart';
+
+import '../Modules/loading.dart';
 
 
 class HomeScreen extends StatelessWidget {

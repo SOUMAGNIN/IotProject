@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:login_singup/config/palette.dart';
-import 'package:login_singup/screen/authenfication.dart';
-import 'package:login_singup/screen/loading.dart';
+import 'package:login_singup/Modules/authenfication.dart';
+import 'package:login_singup/Modules/loading.dart';
+import 'package:login_singup/screen/splashscreen_wrapper.dart';
+
+
 class LoginSignupScreen extends StatefulWidget {
   @override
   _LoginSignupScreenState createState() => _LoginSignupScreenState();
@@ -30,7 +33,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return loading ? Loading() : Scaffold(
+    return loading ? SplashScreenWrapper() : Scaffold(
       backgroundColor: Palette.backgroundColor,
       body: Stack(
         children: [
@@ -89,7 +92,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
           // Trick to add the shadow for the submit button
           buildBottomHalfContainer(true),
           //Main Contianer for Login and Signup
-          AnimatedPositioned(
+           AnimatedPositioned(
             duration: Duration(milliseconds: 700),
             curve: Curves.bounceInOut,
             top: isSignupScreen ? 215 : 245,
@@ -98,7 +101,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
               curve: Curves.bounceInOut,
               height: isSignupScreen ? 320 : 250,
               padding: EdgeInsets.all(20),
-              width: MediaQuery.of(context).size.width - 40,
+              width: MediaQuery.of(context).size.width - 40,//-40
               margin: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -373,6 +376,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                       if(isSignupScreen) {
                         if (_formKeySign.currentState.validate()) {
                           setState(() {
+                            print("new user ");
                             loading = true;
                           });
                           var password = passwordController.value.text;
@@ -396,7 +400,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                           });
                           var password = passwordController.value.text;
                           var email = emailController.value.text;
-                          //var user = userNameController.text;
+
                           //connexion
                           dynamic result =await  _auth.signInWithEmailAndPassword(email, password);
                           if (result == null) {
@@ -405,8 +409,11 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                               error = 'please supply a valid email';
                             });
                           }
+                          else {
+                            loading = true ;
+                            print('new connexion');
+                          }
                         }
-
                       }
                       }
                     ,
@@ -504,7 +511,7 @@ class _NavState extends State<Nav> {
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      /*bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
@@ -535,7 +542,7 @@ class _NavState extends State<Nav> {
         onTap: _onItemTap,
         selectedFontSize: 13.0,
         unselectedFontSize: 13.0,
-      ),
+      ),*/
     );
   }
 }

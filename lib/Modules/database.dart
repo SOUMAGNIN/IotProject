@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:login_singup/screen/user.dart';class DatabaseService {
+import 'package:login_singup/Modules/user.dart';class DatabaseService {
   final String uid;
 
   DatabaseService(this.uid);

@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:login_singup/screen/user.dart';
+import 'package:login_singup/Modules/user.dart';
+
+import 'database.dart';
 
 class Authentification {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -17,8 +19,10 @@ class Authentification {
       UserCredential result =
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       User user = result.user;
+      print("L utilisateur existe");
       return _userFromFirebaseUser(user);
     } catch (exception) {
+      print("No user found");
       print(exception.toString());
       return null;
     }
@@ -29,14 +33,14 @@ class Authentification {
       UserCredential result =
       await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User user = result.user;
-     /* if (user == null) {
+      if (user == null) {
+        print("No user found");
         throw Exception("No user found");
       } else {
+        print("L utilisateur existe");
         await DatabaseService(user.uid).saveUser(name, 0);
-
         return _userFromFirebaseUser(user);
-      }*/
-      return _userFromFirebaseUser(user);
+      }
     } catch (exception) {
       print(exception.toString());
       return null;
